@@ -1,0 +1,36 @@
+<div class="col-md-12">
+	<div class="card card-container">
+		<img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card"/>
+		<form *ngIf="!isSuccessful" [formGroup]="form" (ngSubmit)="onSubmit()" >
+			<div class="form-group">
+				<label for="firstName">First Name</label>
+				<input type="text" class="form-control" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
+				<div class="invalid-feedback" *ngIf="f.firstName.errors && submitted">First Name is required! </div>
+			</div>
+			<div class="form-group">
+				<label for="lastName">Last Name</label>
+				<input type="text" class="form-control" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
+				<div class="invalid-feedback" *ngIf="f.lastName.errors && submitted">Last Name is required! </div>
+			</div>
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="text" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+				<div class="invalid-feedback" *ngIf="f.email.errors && submitted">Email is required! </div>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+				<div class="invalid-feedback" *ngIf="f.password.errors && submitted">
+					<div *ngIf="f.password.errors.required">Password is required</div>
+					<div *ngIf="f.password.errors.minlength">Password must be at least 6 characters </div>
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary btn-block">Sign Up</button>
+			</div>
+		</form>
+		<div class="alert alert-success" *ngIf="isSuccessful">
+			Your registration is successful!
+		</div>
+	</div>
+</div>

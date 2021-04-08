@@ -1,0 +1,33 @@
+﻿<div class="p-4">
+<h1>Complaints</h1>
+<a *ngIf="display.addButton.state" routerLink="add" class="btn btn-sm btn-success mb-2">Add Complaint</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Email</th>
+            <th style="width: 30%">Role</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let complaint of complaints">
+            <td>{{complaint.title}}</td>
+            <td>{{complaint.description}}</td>
+            <td>{{complaint.published}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{complaint._id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteComplaint(complaint._id)" class="btn btn-sm btn-danger btn-delete-complaint" [disabled]="complaint.isDeleting">
+                    <span *ngIf="complaint.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!complaint.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!complaints">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

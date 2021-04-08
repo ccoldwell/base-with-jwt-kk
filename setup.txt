@@ -1,0 +1,23 @@
+
+angular app
+	npx @angular/cli new angular-client
+		yes to routing
+	npm install
+	make dockerignore, simple dockerfile, cheat scripts
+
+express app
+	npx express-generator
+	npm install
+	npm install mongoose --save
+	make gitignore, dockerignore, simple dockerfile, cheat scripts
+
+mongo
+	docker run -d -p 27017:27017 --name meank-data mongo
+
+compose
+	touch docker-compose.yml
+
+
+
+check inserted shell vars
+	docker exec -it meank_api_1 /bin/bash

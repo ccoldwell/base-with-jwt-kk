@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+    client:
+        container_name: mean-kk-client
+        build: mean-kk-client
+        ports:
+            - "4200:4200"
+        volumes:
+            - ./mean-kk-client:/app
+    api:
+        container_name: mean-kk-api
+        build: mean-kk-api
+        command: npm run dev
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./mean-kk-api:/usr/src/app
+        links:
+            - database
+    keycloak:
+        image: jboss/keycloak
+        restart: always
+        environment:
+            #KEYCLOAK_VERSION: 6.0.1
+            KEYCLOAK_USER: admin
+            KEYCLOAK_PASSWORD: admin
+            KEYCLOAK_IMPORT: /tmp/realm-export.json
+            JAVA_OPTS: "-Dkeycloak.profile.feature.scripts=enabled -Dkeycloak.profile.feature.upload_scripts=enabled -server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true"
+        volumes:
+            - ./keycloak/realm-export.json:/tmp/realm-export.json
+        ports:
+            - "8080:8080"
+    database:
+        image: mongo:latest
+#        environment:
+#            - MONGO_INITDB_ROOT_USERNAME=devroot
+#            - MONGO_INITDB_ROOT_PASSWORD=devroot
+#            - MONGO_INITDB_DATABASE=meanjwt
+        ports:
+            - "27017:27017"
+        container_name: mean-kk-database
+        volumes:
+            - shared_database:/data/db
+volumes:
+    shared_database:
+
